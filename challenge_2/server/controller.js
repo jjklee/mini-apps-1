@@ -1,4 +1,8 @@
+const fs = require('fs');
+const path = require('path')
+
 const generateReport = ({ report }) => {
+  console.log(report);
   let output = Object.keys(report).join(',').replace(',children', '');
   output += '\n' + Object.values(report).join(',').replace(/,\[object Object\]/g, '') + '\n';
   
@@ -17,7 +21,19 @@ const generateReport = ({ report }) => {
     }
   }
   getChildren(report);
+  makeCSV(output);
   return output;
+}
+
+const makeCSV = (text) => {
+  let filePath = path.join(__dirname, 'report', 'test.csv');
+  fs.writeFile(filePath, text, function(err) {
+    if(err) {
+      return console.log(err);
+    } else {
+      console.log("The file was saved!");
+    }
+  }); 
 }
 
 module.exports = { generateReport }

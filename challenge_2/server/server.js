@@ -14,8 +14,13 @@ app.use(parser.urlencoded({ extended : true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.post('/generator', (req, res) => {
-  var report = generateReport(req.body)
-  res.status(201).send(report)
+  let report = generateReport(req.body);
+  res.status(201).send(report);
 })
+
+// app.get('/generator', (req, res) => {
+//   let filePath = path.join(__dirname, 'report', 'test.csv');
+//   res.sendFile(filePath);
+// })
 
 app.listen(port, () => console.log('Listenting to port ', port));
