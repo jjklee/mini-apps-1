@@ -6,52 +6,57 @@ class App extends React.Component {
     super(props);
     this.state = {
       report: '',
-      result: ''
+      result: '',
     }
-    this.generateReport = this.generateReport.bind(this);
-    this.onChange = this.onChange.bind(this);
+    // this.generateReport = this.generateReport.bind(this);
+    // this.onChange = this.onChange.bind(this);
     // this.getCSV = this.getCSV.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  generateReport(e) {
+  handleSubmit(e) {
     e.preventDefault()
-    let report = this.state.report;
-    let parsedReport = JSON.parse(report);
-    axios
+    let file = document.getElementById('upload').files[0];
+
+    var fileReader = new FileReader();
+    fileReader.readAsText(file, "UTF-8");
+    fileReader.onload = (evt) => {
+      this.setState({ report : evt.target.result})
+      // document.getElementById("fileContents").innerHTML = evt.target.result;
+      var report = JSON.parse(evt.target.result);
+      axios
       .post('/generator', {
-        report: parsedReport
+        report
       })
       .then(({data}) => {
         this.setState({ result: data });
       })
       .catch( err => console.error(err));
+    }
   }
 
-  onChange(e) {
-    this.setState({ report: e.target.value });
+  getCSV(e) {
+    e.preventDefault()
+    axios
+      .get('./generator')
+      .then( (file) => console.log('====', file))
+      .catch(err => console.error(err));
   }
-
-  // getCSV() {
-  //   axios
-  //     .get('./generator')
-  //     .then(() => console.log('in getCSV'))
-  //     .catch(err => console.error(err));
-  // }
 
   render() {
     return (
       <div>
       <h3>CSV Report Generator</h3>
-        <form>
-          <div><textarea onChange={(e) => this.onChange(e)}></textarea></div>
-          <div><input type="file" accept=".csv"></input></div>
-          <div><button onClick={(e) => this.generateReport(e)}>Generate into CSV</button></div>
+        <form onSubmit={this.handleSubmit}>
+          <div><input id="upload" type="file" accept=".json"></input></div>
+          <div><button>Generate into CSV</button></div>
         </form>
-        <div>
-          <h4 className="input">Input: {this.state.report}</h4>
-          <h4 className="output">Output: {this.state.result}</h4>
-        </div>
-        <a href="">Download CSV</a>
+        <a href="" onClick={this.getCSV} download>Download CSV</a>
+        <div id='input'>Input:</div>
+        <div id="fileContents">{this.state.report} </div>
+        <br />
+        <div id='output'>Output:</div>
+        <div>{this.state.result}</div>
       </div>
     )
   }

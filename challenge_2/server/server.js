@@ -18,9 +18,15 @@ app.post('/generator', (req, res) => {
   res.status(201).send(report);
 })
 
-// app.get('/generator', (req, res) => {
-//   let filePath = path.join(__dirname, 'report', 'test.csv');
-//   res.sendFile(filePath);
-// })
+app.get('/generator', (req, res) => {
+  let filePath = path.join(__dirname, 'report', 'test.csv');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      next(err)
+    } else {
+      console.log('Sent : ', filePath);
+    }
+  }) 
+})
 
 app.listen(port, () => console.log('Listenting to port ', port));

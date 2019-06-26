@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path')
 
 const generateReport = ({ report }) => {
-  console.log(report);
   let output = Object.keys(report).join(',').replace(',children', '');
   output += '\n' + Object.values(report).join(',').replace(/,\[object Object\]/g, '') + '\n';
   
