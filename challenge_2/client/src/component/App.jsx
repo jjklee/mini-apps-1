@@ -5,28 +5,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      report: 'input',
-      result: 'output'
+      report: '',
+      result: ''
     }
   }
 
   generateReport(e) {
     e.preventDefault()
+    let report = this.state.report;
+    let parsedReport = JSON.parse(report);
     axios
       .post('/generator', {
-        report: this.state.report
+        report: parsedReport
       })
-      .then(this.getReport())
+      .then(({data}) => {
+        this.setState({ result: data });
+      })
       .catch( err => console.error(err));
-  }
-
-  getReport() {
-    axios
-      .get('/generator')
-      .then(data => {
-        this.setState({ result: data.data.memes });
-      })
-      .catch()
   }
 
   onChange(e) {
@@ -36,14 +31,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      CSV Report Generator
+      <h3>CSV Report Generator</h3>
         <form>
           <div><textarea onChange={(e) => this.onChange(e)}></textarea></div>
-          <div><button onClick={(e) => this.generateReport(e)}>Submit</button></div>
+          <div><button onClick={(e) => this.generateReport(e)}>Generate into CSV</button></div>
         </form>
         <div>
-          <h3>{this.state.report}</h3>
-          <h3>{this.state.result}</h3>
+          <h4 className="input">Input: {this.state.report}</h4>
+          <h4 className="output">Output: {this.state.result}</h4>
 
         </div>
       </div>
