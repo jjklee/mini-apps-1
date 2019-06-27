@@ -10,7 +10,7 @@ db
   .then(() => {
     console.log('Connection has been established')
   })
-  .then(err => {
+  .catch(err => {
     console.error('Unable to connect to the database');
   })
 
