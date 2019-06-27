@@ -119,38 +119,38 @@ class App extends React.Component {
 
    f1() {
     return (
-      <form>
-        <div>Name <input type="text" placeholder="John Doe" id="name" onChange={this.handleChange}></input></div>
-        <div>Email <input placeholder="john@example.com" id="email" onChange={this.handleChange}></input></div>
-        <div>Password <input type="password" id="password" onChange={this.handleChange}></input></div>
-        <button onClick={this.handleNextF1}>Next</button>
+      <form onSubmit={this.handleNextF1}>
+        <div>Name <input type="text" placeholder="John Doe" id="name" onChange={this.handleChange} required></input></div>
+        <div>Email <input type="email" placeholder="john@example.com" id="email" onChange={this.handleChange} required></input></div>
+        <div>Password <input type="password" id="password" onChange={this.handleChange} required></input></div>
+        <button>Next</button>
       </form>
     )
   }
 
    f2() {
     return (
-      <form>
+      <form onSubmit={this.handleNextF2}>
         <h4>Address</h4>
-        <div>Line 1 <input id="line1" onChange={this.handleChange}></input></div> 
+        <div>Line 1 <input id="line1" onChange={this.handleChange} required></input></div> 
         <div>Line 2 <input id="line2" onChange={this.handleChange}></input></div>
-        <div>City <input placeholder="Los Angeles" id="city" onChange={this.handleChange}></input></div>
-        <div>State <input placeholder="CA" id="state" onChange={this.handleChange}></input></div>
-        <div>Zipcode <input placeholder="123456" id="zipcode" onChange={this.handleChange}></input></div>
-        <div>Phone Number <input placeholder="123-456-7890" id="phonenumber" onChange={this.handleChange}></input></div>
-        <button onClick={this.handleNextF2}>Next</button>
+        <div>City <input placeholder="Los Angeles" id="city" onChange={this.handleChange} required></input></div>
+        <div>State <input placeholder="CA" id="state" onChange={this.handleChange} required></input></div>
+        <div>Zipcode <input placeholder="123456" id="zipcode" onChange={this.handleChange} required></input></div>
+        <div>Phone Number <input placeholder="123-456-7890" id="phonenumber" onChange={this.handleChange} required></input></div>
+        <button>Next</button>
       </form>
     );
   }
 
   f3() {
     return (
-      <form>
-        <div>CC Number <input id="ccnum" onChange={this.handleChange}></input></div>
-        <div>Expiry Date <input id="ccexp" onChange={this.handleChange}></input></div>
-        <div>CVV <input id="cvv" onChange={this.handleChange}></input></div>
-        <div>Billing Zipcode <input id="billingzipcode" onChange={this.handleChange}></input></div>
-        <button onClick={this.handleNextF3}>Next</button>
+      <form onSubmit={this.handleNextF3}>
+        <div>CC Number <input id="ccnum" onChange={this.handleChange} required></input></div>
+        <div>Expiry Date <input id="ccexp" onChange={this.handleChange} required></input></div>
+        <div>CVV <input id="cvv" onChange={this.handleChange} required></input></div>
+        <div>Billing Zipcode <input id="billingzipcode" onChange={this.handleChange} required></input></div>
+        <button>Next</button>
       </form>
     );
   };
