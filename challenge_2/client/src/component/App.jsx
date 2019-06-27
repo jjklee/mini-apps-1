@@ -8,9 +8,6 @@ class App extends React.Component {
       report: '',
       result: '',
     }
-    // this.generateReport = this.generateReport.bind(this);
-    // this.onChange = this.onChange.bind(this);
-    // this.getCSV = this.getCSV.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -38,8 +35,9 @@ class App extends React.Component {
   getCSV(e) {
     e.preventDefault()
     axios
-      .get('./generator')
-      .then( (file) => console.log('====', file))
+      .get('/download', {})
+      //gets file but cannot get it to download from link
+      .then((file) => console.log(file))
       .catch(err => console.error(err));
   }
 

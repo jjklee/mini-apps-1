@@ -18,9 +18,9 @@ app.post('/generator', (req, res) => {
   res.status(201).send(report);
 })
 
-app.get('/generator', (req, res) => {
+app.get('/download', (req, res) => {
   let filePath = path.join(__dirname, 'report', 'test.csv');
-  res.sendFile(filePath, (err) => {
+  res.download(filePath, (err) => {
     if (err) {
       next(err)
     } else {
