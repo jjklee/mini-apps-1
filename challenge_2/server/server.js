@@ -13,20 +13,27 @@ app.use(parser.urlencoded({ extended : true }));
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.post('/generator', (req, res) => {
-  let report = generateReport(req.body);
-  res.status(201).send(report);
-})
+// app.post('/generator', (req, res) => {
+//   // let report = generateReport(req.body);
 
-app.get('/download', (req, res) => {
-  let filePath = path.join(__dirname, 'report', 'test.csv');
-  res.download(filePath, (err) => {
-    if (err) {
-      next(err)
-    } else {
-      console.log('Sent : ', filePath);
-    }
-  }) 
-})
+//   console.log(report);
+//   // res.status(201).send(report);
+//   res.setHeader('Content-disposition', 'attachment; filename=test.csv');
+//   res.set('Content-Type', 'text/csv');
+//   res.status(200).send(report);
+// })
+
+app.post('/generator', generateReport);
+
+// app.get('/download', (req, res) => {
+//   let filePath = path.join(__dirname, 'report', 'test.csv');
+//   res.download(filePath, (err) => {
+//     if (err) {
+//       next(err)
+//     } else {
+//       console.log('Sent : ', filePath);
+//     }
+//   }) 
+// })
 
 app.listen(port, () => console.log('Listenting to port ', port));
